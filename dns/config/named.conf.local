@@ -1,0 +1,5 @@
+zone "elite.dev.tn" {
+    type master;
+    file "/etc/bind/zone/db.elite.dev.tn";
+};
+

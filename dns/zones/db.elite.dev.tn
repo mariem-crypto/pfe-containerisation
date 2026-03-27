@@ -1,0 +1,10 @@
+$TTL 1h
+@   IN  SOA ns.elite.dev.tn. admin.elite.dev.tn. (
+        2026032601 ; Serial
+        1h         ; Refresh
+        15m        ; Retry
+        1w         ; Expire
+        1h )       ; Minimum
+    IN  NS  ns.elite.dev.tn.
+ns  IN  A   127.0.0.1
+www IN  A   127.0.0.1
