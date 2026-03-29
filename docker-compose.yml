@@ -6,24 +6,43 @@ services:
     container_name: telecom-web
     ports:
       - "8081:80"
+    networks:
+      - pfe-network
+    restart: always
 
   nginx:
     image: nginx:latest
     container_name: telecom-nginx
     ports:
       - "8090:80"
+    networks:
+      - pfe-network
+    restart: always
+
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     depends_on:
       - web
-
   dns:
     image: internetsystemsconsortium/bind9:9.18
     container_name: telecom-dns
     ports:
       - "5353:53/tcp"
       - "5353:53/udp"
+    networks:
+      - pfe-network
+    restart: always
     volumes:
       - ./dns/config:/etc/bind       # tous les named.conf*
       - ./dns/zones:/etc/bind/zone   # fichier de zone db.elite.dev.tn
-    restart: unless-stopped
+  dhcp:
+    image: telecom-dhcp
+    container_name: telecom-dhcp
+    cap_add:
+      - NET_ADMIN
+    networks:
+      - pfe-network
+    restart: always
+networks:
+  pfe-network:
+    external: true   # Utilise le réseau Docker que tu as déjà créé
