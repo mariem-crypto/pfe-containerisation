@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "=== Test Web ==="
-curl -s -o /dev/null -w "%{http_code}" http://localhost:80 | grep -q "200"
+curl -s -o /dev/null -w "%{http_code}" http://localhost:81 | grep -q "200"
 if [ $? -eq 0 ]; then echo "[OK] Web fonctionne"; else echo "[FAIL] Web KO"; exit 1; fi
 
 echo "=== Test DNS container ==="
