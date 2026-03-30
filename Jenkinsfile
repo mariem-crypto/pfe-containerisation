@@ -20,7 +20,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Demarrage des containers...'
-                sh 'docker rm -f telecom-web telecom-dns telecom-dhcp || true'
+                sh 'docker rm -f telecom-web telecom-dns telecom-dhcp telecom-nginx || true'
                 sh 'docker compose up -d'
                 sh 'sleep 10'
             }
