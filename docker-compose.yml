@@ -18,11 +18,11 @@ services:
     networks:
       - pfe-network
     restart: always
-
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     depends_on:
       - web
+
   dns:
     image: internetsystemsconsortium/bind9:9.18
     container_name: telecom-dns
@@ -30,19 +30,23 @@ services:
       - "5353:53/tcp"
       - "5353:53/udp"
     networks:
-      - pfe-network
+      pfe-network:
+        ipv4_address: 172.19.0.10
     restart: always
     volumes:
-      - ./dns/config:/etc/bind       # tous les named.conf*
-      - ./dns/zones:/etc/bind/zone   # fichier de zone db.elite.dev.tn
+      - ./dns/config:/etc/bind
+      - ./dns/zones:/etc/bind/zone
+
   dhcp:
     image: telecom-dhcp
     container_name: telecom-dhcp
     cap_add:
       - NET_ADMIN
     networks:
-      - pfe-network
+      pfe-network:
+        ipv4_address: 172.19.0.11
     restart: always
+
 networks:
   pfe-network:
-    external: true   # Utilise le réseau Docker que tu as déjà créé
+    external: true
